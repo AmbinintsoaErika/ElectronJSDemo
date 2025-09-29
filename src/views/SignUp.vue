@@ -60,7 +60,7 @@
         <div class="uk-margin">
           <div class="uk-flex uk-flex-row">
             <span class="uk-margin-small-bottom uk-text-primary" uk-icon="icon: crosshairs"></span>
-            <label class="uk-form-label uk-text-bold uk-text-primary uk-margin-small-left">Code postal</label>
+            <label class="uk-form-label uk-text-bold uk-text-primary uk-margin-small-left">Ville</label>
           </div>
           <input class="uk-input uk-border-rounded" v-model="city" required />
         </div>
@@ -130,9 +130,9 @@ async function handleSignUp() {
 
     const data = await response.json()
 
-    if (data.code === 201 || data.code === 200) {
-      if (data.token) localStorage.setItem('token', data.token)
-      router.push('/')
+    if (data.code == 201 || data.code == 200) {
+        UIkit.notification(data.message, 'success')
+        router.push('/login')
     } else {
       errorMessage.value = data.message || 'Impossible de créer le compte.'
     }
