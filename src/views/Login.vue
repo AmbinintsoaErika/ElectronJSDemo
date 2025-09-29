@@ -56,36 +56,36 @@
     </div>
   </div>
 </template>
+
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+  import { ref } from 'vue'
+  import { useRouter } from 'vue-router'
 
-const email = ref('')
-const password = ref('')
-const errorMessage = ref('')
+  const email = ref('')
+  const password = ref('')
+  const errorMessage = ref('')
 
-const router = useRouter()
+  const router = useRouter()
 
-async function handleLogin() {
-  errorMessage.value = ''
-  try {
-    const response = await fetch('http://localhost:3000/login', {
-      method: 'POST',
-      headers: { 'accept': 'application/json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email.value, password: password.value })
-    })
+  async function handleLogin() {
+    errorMessage.value = ''
+    try {
+      const response = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: { 'accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.value, password: password.value })
+      })
 
-    const data = await response.json()
+      const data = await response.json()
 
-    if (data.code == 200) {
-      localStorage.setItem('userToken', data.data)
-
-      router.push('/')
-    } else {
-      errorMessage.value = data.message || 'Veuillez vérifier vos identifiants.'
+      if (data.code == 200) {
+        localStorage.setItem('userToken', data.data)
+        router.push('/')
+      } else {
+        errorMessage.value = data.message || 'Veuillez vérifier vos identifiants.'
+      }
+    } catch (err) {
+      errorMessage.value = 'Une erreur est survenue. Veuillez réessayer !'
     }
-  } catch (err) {
-    errorMessage.value = 'Une erreur est survenue. Veuillez réessayer !'
   }
-}
 </script>

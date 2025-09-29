@@ -1,10 +1,11 @@
 <script setup>
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { computed } from 'vue'
 
 const $route = useRoute()
 const router = useRouter()
-const isLoggedIn = ref(!!localStorage.getItem('userToken'))
+const isLoggedIn = computed(() => !!localStorage.getItem('userToken'))
 
 
 function logout() {
