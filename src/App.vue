@@ -4,10 +4,11 @@ import { useRoute, useRouter } from 'vue-router'
 
 const $route = useRoute()
 const router = useRouter()
-const isLoggedIn = ref(!!localStorage.getItem('token'))
-console.log(isLoggedIn.value)
+const isLoggedIn = ref(!!localStorage.getItem('userToken'))
+
+
 function logout() {
-  localStorage.removeItem('token')
+  localStorage.removeItem('userToken')
   isLoggedIn.value = false
   router.push('/login')
 }
@@ -28,10 +29,10 @@ function logout() {
 
       <div class="uk-navbar-right uk-margin-right">
         <ul class="uk-navbar-nav">
-          <li v-if="!isLoggedIn.value && $route.path !== '/login'">
+          <li v-if="!isLoggedIn && ($route.path !== '/login' && $route.path !== '/sign-up')">
             <router-link to="/login" active-class="uk-active">Connexion</router-link>
           </li>
-          <li v-else-if="isLoggedIn.value">
+          <li v-else-if="isLoggedIn && ($route.path !== '/login' && $route.path !== '/sign-up')">
             <a @click.prevent="logout">Déconnexion</a>
           </li>
         </ul>

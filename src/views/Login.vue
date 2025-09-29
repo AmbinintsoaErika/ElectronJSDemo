@@ -6,7 +6,7 @@
       </div>
 
       <form @submit.prevent="handleLogin" class="uk-form-stacked">
-        <!-- Error message -->
+        <!-- Message d'erreur -->
         <div v-if="errorMessage" class="uk-alert-danger" uk-alert>
           {{ errorMessage }}
         </div>
@@ -43,9 +43,14 @@
 
         <!-- Bouton de connexion -->
         <div class="uk-flex uk-flex-center uk-margin">
-          <button type="submit" class="uk-button uk-button-primary uk-width-2-5 uk-border-rounded">
+          <button type="submit" class="uk-button uk-button-primary uk-width-3-5 uk-border-rounded">
             <span uk-icon="sign-in"></span> Se connecter
           </button>
+        </div>
+
+        <div class="uk-flex uk-flex-row uk-flex-right">
+          <span>Pas de compte ?</span>
+          <router-link to="/sign-up" tag="button" class="uk-margin-small-left">Inscrivez-vous</router-link>
         </div>
       </form>
     </div>
@@ -73,7 +78,7 @@ async function handleLogin() {
     const data = await response.json()
 
     if (data.code == 200) {
-      localStorage.setItem('token', data.token)
+      localStorage.setItem('userToken', data.data)
 
       router.push('/')
     } else {
