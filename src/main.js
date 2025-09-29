@@ -3,7 +3,7 @@ import path from 'node:path';
 import started from 'electron-squirrel-startup';
 
 const log = require('electron-log');
-// IMORTANT ! Pour activer le logger dans le processus de rendu (cotés front)
+// IMPORTANT ! Pour activer le logger dans le processus de rendu (cotés front)
 log.initialize();
 log.info('Application démarrée');
 
